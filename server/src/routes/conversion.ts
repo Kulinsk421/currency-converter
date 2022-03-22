@@ -1,6 +1,7 @@
 require("dotenv").config();
-const { default: axios } = require("axios");
-const express = require("express");
+import { default as axios } from "axios";
+import express from "express";
+
 const router = express.Router();
 const apiURL = `https://openexchangerates.org/api/latest.json?app_id=${process.env.RATES_API_KEY}`;
 
@@ -15,10 +16,10 @@ router.route("/").get(async (req, res) => {
     let amount = 1;
     let conversionResult = ((currencyTo / currencyFrom) * amount).toFixed(3);
 
-    res.send(conversionResult);
+    res.json(parseFloat(conversionResult));
   } catch (err) {
     console.log(err);
   }
 });
 
-module.exports = router;
+export default router;

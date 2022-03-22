@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.route("/").get((req, res) => {
   res.send("Yo this is db connection");
 });
 
-module.exports = router;
+export default router;
