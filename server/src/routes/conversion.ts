@@ -1,22 +1,24 @@
 require("dotenv").config();
-import { default as axios } from "axios";
 import express from "express";
+import { fetchRates } from "../helpers/fetchRates";
 
 const router = express.Router();
-const apiURL = `https://openexchangerates.org/api/latest.json?app_id=${process.env.RATES_API_KEY}`;
+router.route("/").post(async (req, res, next) => {
+  if (!req.body.currencyFrom) {
+    next({ message: "You must provide input" });
+    return;
+  }
 
-router.route("/").get(async (req, res) => {
+  const { currencyFrom, currencyTo, amountFrom } = req.body;
+
   try {
-    const getCurrencyRates = await axios.get(apiURL);
+    const currencyRatesRes = await fetchRates();
+    const currencyRates = currencyRatesRes.data.rates;
+    const rateFrom = currencyRates[currencyFrom];
+    const rateTo = currencyRates[currencyTo];
+    let convertedAmount = (rateTo / rateFrom) * Number(amountFrom);
 
-    const currencyRates = getCurrencyRates.data.rates;
-    const currencyNames = Object.keys(currencyRates);
-    let currencyFrom = currencyRates.EUR;
-    let currencyTo = currencyRates.CZK;
-    let amount = 1;
-    let conversionResult = ((currencyTo / currencyFrom) * amount).toFixed(3);
-
-    res.json(parseFloat(conversionResult));
+    res.json({ convertedAmount, rateFrom, rateTo, currencyTo });
   } catch (err) {
     console.log(err);
   }
