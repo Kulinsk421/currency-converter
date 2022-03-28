@@ -3,7 +3,7 @@ import { breakpoint, colors, shadows } from "../../../helpers/consts";
 
 export const StyledButton = styled.button`
   position: absolute;
-  top: 430px;
+  top: 470px;
   width: 150px;
   height: 40px;
   border-radius: 40px;
@@ -18,6 +18,9 @@ export const StyledButton = styled.button`
     cursor: pointer;
   }
   ${breakpoint.tabletPortrait} {
-    top: 450px;
+    top: 490px;
+  }
+  ${breakpoint.phone} {
+    top: 480px;
   }
 `;

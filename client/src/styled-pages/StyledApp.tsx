@@ -12,7 +12,7 @@ export const FormContainer = styled.div`
   padding: 20px;
   box-shadow: ${shadows.dropShadow};
   border-radius: 10px;
-  height: 40vh;
+  height: 45vh;
 `;
 
 export const StatisticsContainer = styled.div`
@@ -28,6 +28,6 @@ export const Fields = styled.div`
   padding: 0 ${u(1)};
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 30px;
   justify-items: center;
 `;
