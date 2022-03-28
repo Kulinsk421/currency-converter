@@ -7,9 +7,11 @@ interface InputProps {
   name: string;
   label: JSX.Element | string;
   value?: string;
+  type?: string;
+  className?: string;
 }
 
-const TextField = ({ name, label, value }: InputProps) => {
+const TextField = ({ name, label, value, className }: InputProps) => {
   const { values, setValues } = useContext(FormContext);
 
   useEffect(() => {
@@ -22,6 +24,7 @@ const TextField = ({ name, label, value }: InputProps) => {
     <StyledTextField>
       <Label htmlFor={name}>{label}</Label>
       <Input
+        className={className}
         value={values[name]}
         name={name}
         onChange={(e) => {

@@ -2,11 +2,17 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   grey300: "#EAEAEA",
+  grey500: "#4d4949",
   blue300: "#24AFCE",
-  purple700: "#381752",
+  purple300: "#9e2fbd",
 } as const;
 
 export type ColorKeys = keyof typeof colors;
+
+export const shadows = {
+  dropShadow:
+    "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+};
 
 export const device = {
   miniPhone: 350,

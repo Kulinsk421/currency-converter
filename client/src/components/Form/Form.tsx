@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import { StyledForm } from "./Styles/StyledForm";
 
 type Values = { [key: string]: string };
 
@@ -14,7 +14,6 @@ interface FormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>, values: Values) => void;
 }
 
-const StyledForm = styled.form``;
 export const FormContext = React.createContext<FormContext>(null);
 
 const Form = ({ initialValues, children, onSubmit }: FormProps) => {

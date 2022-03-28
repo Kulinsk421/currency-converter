@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { breakpoint, colors, shadows } from "../../../helpers/consts";
 
-export const StyledTextField = styled.div`
+export const StyledSelectField = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+  width: 250px;
   ${breakpoint.tabletPortrait} {
-    width: 250px;
     flex-direction: column;
     gap: 20px;
   }
@@ -15,19 +14,20 @@ export const StyledTextField = styled.div`
     width: 150px;
   }
 `;
-export const Label = styled.label``;
-export const Input = styled.input`
+export const Select = styled.select`
   text-align: center;
   font-size: 2rem;
   height: 40px;
   border: 1px solid ${colors.grey500};
   border-radius: 5px;
+  background-color: ${colors.white};
   &:focus {
     outline: none;
     border: 1px solid ${colors.blue300};
     box-shadow: ${shadows.dropShadow};
   }
-
-  &.result-field {
-  }
+`;
+export const Option = styled.option`
+  background-color: ${colors.grey500};
+  color: ${colors.white};
 `;
