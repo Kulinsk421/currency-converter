@@ -65,7 +65,7 @@ function App() {
                 <TextField
                   label={`Amount from:`}
                   name="amountFrom"
-                  type="number"
+                  type={"number"}
                 />
                 <SelectField
                   label={`Currency from:`}
@@ -73,6 +73,7 @@ function App() {
                   arrayOfOptions={Object.keys(rates.data.rates)}
                 />
                 <TextField
+                  disabled={true}
                   className="result-field"
                   value={
                     convertedData.convertedAmount &&

@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { breakpoint, colors, shadows } from "../../../helpers/consts";
+import { colors, shadows } from "../../../helpers/consts";
 
 export const StyledButton = styled.button`
-  position: absolute;
-  top: 470px;
+  margin-top: 50px;
   width: 150px;
   height: 40px;
   border-radius: 40px;
@@ -16,11 +15,5 @@ export const StyledButton = styled.button`
     background-color: ${colors.purple300};
     box-shadow: ${shadows.dropShadow};
     cursor: pointer;
-  }
-  ${breakpoint.tabletPortrait} {
-    top: 490px;
-  }
-  ${breakpoint.phone} {
-    top: 480px;
   }
 `;

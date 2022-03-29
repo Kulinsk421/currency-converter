@@ -12,7 +12,7 @@ export const StyledTextField = styled.div`
     gap: 20px;
   }
   ${breakpoint.phone} {
-    width: 150px;
+    width: 130px;
   }
 `;
 export const Label = styled.label``;
@@ -24,10 +24,11 @@ export const Input = styled.input`
   border-radius: 5px;
   &:focus {
     outline: none;
-    border: 1px solid ${colors.blue300};
+    border: 2px solid ${colors.blue300};
     box-shadow: ${shadows.dropShadow};
   }
 
   &.result-field {
+    color: ${colors.purple300};
   }
 `;

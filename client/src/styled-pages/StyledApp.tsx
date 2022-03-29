@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import { colors, shadows } from "../helpers/consts";
+import { breakpoint, colors, shadows } from "../helpers/consts";
 import u from "../helpers/unit";
 
-export const StyledApp = styled.div`
-  max-width: 100vw;
-  max-height: 100vh;
-`;
+export const StyledApp = styled.div``;
 
 export const FormContainer = styled.div`
   background-color: ${colors.white};
@@ -21,13 +18,19 @@ export const StatisticsContainer = styled.div`
   padding: 20px;
   box-shadow: ${shadows.dropShadow};
   border-radius: 10px;
-  height: 35vh;
+  height: 32vh;
 `;
 
 export const Fields = styled.div`
   padding: 0 ${u(1)};
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 50px 30px;
   justify-items: center;
+  ${breakpoint.tabletPortrait} {
+    gap: 30px;
+  }
+  ${breakpoint.phone} {
+    gap: 20px 0;
+  }
 `;

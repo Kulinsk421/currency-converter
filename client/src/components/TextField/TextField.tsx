@@ -9,9 +9,17 @@ interface InputProps {
   value?: string;
   type?: string;
   className?: string;
+  disabled?: boolean;
 }
 
-const TextField = ({ name, label, value, className }: InputProps) => {
+const TextField = ({
+  name,
+  label,
+  value,
+  className,
+  disabled,
+  type,
+}: InputProps) => {
   const { values, setValues } = useContext(FormContext);
 
   useEffect(() => {
@@ -23,7 +31,10 @@ const TextField = ({ name, label, value, className }: InputProps) => {
   return (
     <StyledTextField>
       <Label htmlFor={name}>{label}</Label>
+
       <Input
+        type={type}
+        disabled={disabled}
         className={className}
         value={values[name]}
         name={name}

@@ -11,7 +11,10 @@ export const StyledSelectField = styled.div`
     gap: 20px;
   }
   ${breakpoint.phone} {
-    width: 150px;
+    width: 130px;
+  }
+  ${breakpoint.miniPhone} {
+    width: 80px;
   }
 `;
 export const Select = styled.select`
@@ -23,7 +26,7 @@ export const Select = styled.select`
   background-color: ${colors.white};
   &:focus {
     outline: none;
-    border: 1px solid ${colors.blue300};
+    border: 2px solid ${colors.blue300};
     box-shadow: ${shadows.dropShadow};
   }
 `;
