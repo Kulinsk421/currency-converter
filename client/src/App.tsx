@@ -1,24 +1,49 @@
-import { useState } from "react";
-import Button from "./components/Button/Button";
-import Form, { FormContext } from "./components/Form/Form";
-import SelectField from "./components/SelectField/SelectField";
-import TextField from "./components/TextField/TextField";
+import { useEffect, useState } from "react";
+import CurrencyInput from "./components/CurrencyInput.tsx/CurrencyInput";
 import { PageHeader } from "./components/Typo/PageHeader";
 import { SectionHeader } from "./components/Typo/SectionHeader";
 import { useRates } from "./hooks/useRates";
 import {
-  Fields,
   FormContainer,
   StatisticsContainer,
   StyledApp,
+  Fields,
 } from "./styled-pages/StyledApp";
 
 function App() {
   const rates = useRates();
-  const [convertedData, setConvertedData] = useState({
-    convertedAmount: null,
-    currencyTo: ``,
-  });
+  const [amount1, setAmount1] = useState(1);
+  const [amount2, setAmount2] = useState(1);
+  const [currency1, setCurrency1] = useState("USD");
+  const [currency2, setCurrency2] = useState("RUB");
+
+  const handleAmount1Change = (amount1) => {
+    setTimeout(() => {
+      setAmount2((amount1 * rates.data[currency2]) / rates.data[currency1]);
+    }, 500);
+    setAmount1(amount1);
+  };
+
+  const handleCurrency1Change = (currency1) => {
+    setTimeout(() => {
+      setAmount2((amount1 * rates.data[currency2]) / rates.data[currency1]);
+    }, 500);
+    setCurrency1(currency1);
+  };
+
+  const handleAmount2Change = (amount2) => {
+    setTimeout(() => {
+      setAmount1((amount2 * rates.data[currency1]) / rates.data[currency2]);
+    }, 500);
+    setAmount2(amount2);
+  };
+
+  const handleCurrency2Change = (currency2) => {
+    setTimeout(() => {
+      setAmount1((amount2 * rates.data[currency1]) / rates.data[currency2]);
+    }, 500);
+    setCurrency2(currency2);
+  };
 
   if (rates.loading)
     return <PageHeader className="loading-message">Loading ...</PageHeader>;
@@ -28,74 +53,22 @@ function App() {
       <PageHeader>Currency Converter</PageHeader>
       <FormContainer>
         <SectionHeader>Calculator</SectionHeader>
-        <Form
-          onSubmit={async (e, values) => {
-            e.preventDefault();
-            try {
-              const res = await fetch(`http://localhost:5000/conversion`, {
-                method: `post`,
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  currencyFrom: values.currencyFrom,
-                  currencyTo: values.currencyTo,
-                  amountFrom: values.amountFrom,
-                }),
-              });
-              const data = await res.json();
-              setConvertedData({
-                convertedAmount: data.convertedAmount,
-                currencyTo: data.currencyTo,
-              });
-            } catch (e) {
-              console.log(e);
-            }
-          }}
-          initialValues={{
-            amountFrom: `1`,
-            currencyFrom: `USD`,
-            currencyTo: `RUB`,
-            convertedAmount: ``,
-          }}
-        >
-          {({ values }) => (
-            <>
-              <Fields>
-                <TextField
-                  label={`Amount from:`}
-                  name="amountFrom"
-                  type={"number"}
-                />
-                <SelectField
-                  label={`Currency from:`}
-                  name={`currencyFrom`}
-                  arrayOfOptions={Object.keys(rates.data.rates)}
-                />
-                <TextField
-                  disabled={true}
-                  className="result-field"
-                  value={
-                    convertedData.convertedAmount &&
-                    new Intl.NumberFormat("cs-CZ", {
-                      style: "currency",
-                      maximumFractionDigits: 4,
-                      currency: convertedData.currencyTo,
-                    }).format(convertedData.convertedAmount)
-                  }
-                  label={`Amount to:`}
-                  name="convertedAmount"
-                />
-                <SelectField
-                  label={`Currency to:`}
-                  name={`currencyTo`}
-                  arrayOfOptions={Object.keys(rates.data.rates)}
-                />
-              </Fields>
-              <Button text="CONVERT" type="submit" />
-            </>
-          )}
-        </Form>
+        <div>
+          <CurrencyInput
+            onAmountChange={handleAmount1Change}
+            onCurrencyChange={handleCurrency1Change}
+            currencies={Object.keys(rates.data)}
+            amount={amount1}
+            currency={currency1}
+          />
+          <CurrencyInput
+            onAmountChange={handleAmount2Change}
+            onCurrencyChange={handleCurrency2Change}
+            currencies={Object.keys(rates.data)}
+            amount={amount2}
+            currency={currency2}
+          />
+        </div>
       </FormContainer>
       <StatisticsContainer>
         <SectionHeader>Statistics</SectionHeader>
