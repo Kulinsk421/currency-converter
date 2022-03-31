@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
+import Form from "./components/Form/Form";
 import { breakpoint, colors } from "./helpers/consts";
 import u from "./helpers/unit";
 
