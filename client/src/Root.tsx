@@ -1,14 +1,15 @@
-import React from "react";
-import styled from "styled-components";
 import CurrencyInput from "./components/CurrencyInput.tsx/CurrencyInput";
 import { PageHeader } from "./components/Typo/PageHeader";
 import { SectionHeader } from "./components/Typo/SectionHeader";
 import { useRates } from "./hooks/useRates";
-import { Container, StatisticsContainer } from "./styled-pages/StyledApp";
+import {
+  Container,
+  Fields,
+  StatisticsContainer,
+} from "./styled-pages/StyledApp";
+import { StyledRoot } from "./styled-pages/StyledRoot";
 
 interface RootProps {}
-
-const StyledRoot = styled.div``;
 
 const Root = ({}: RootProps) => {
   const rates = useRates();
@@ -22,10 +23,10 @@ const Root = ({}: RootProps) => {
       <PageHeader>Currency Converter</PageHeader>
       <Container>
         <SectionHeader>Calculator</SectionHeader>
-        <div>
+        <Fields>
           <CurrencyInput currencies={Object.keys(rates.data)} name={"from"} />
           <CurrencyInput currencies={Object.keys(rates.data)} name={"to"} />
-        </div>
+        </Fields>
       </Container>
       <StatisticsContainer>
         <SectionHeader>Statistics</SectionHeader>

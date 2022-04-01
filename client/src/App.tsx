@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import Form, { FormContext } from "./components/Form/Form";
+import Form from "./components/Form/Form";
 import Root from "./Root";
 import { StyledApp } from "./styled-pages/StyledApp";
 

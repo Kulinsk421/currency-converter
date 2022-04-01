@@ -1,6 +1,13 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { FormContext } from "../Form/Form";
+import { BodyText } from "../Typo/BodyText";
+import {
+  StyledCurrencyInput,
+  StyledInput,
+  StyledOption,
+  StyledSelect,
+} from "./Styles/StyledCurrencyInput";
 
 interface Props {
   name: string;
@@ -11,8 +18,8 @@ const CurrencyInput = ({ name, currencies }: Props) => {
   const { values, setValues } = useContext(FormContext);
 
   const handleChange = (e) => {
-    const theOtherOneKey = Object.keys(values).filter((key) => key !== name)[0];
-    const currencyTo = values[theOtherOneKey];
+    const oppositeKey = Object.keys(values).filter((key) => key !== name)[0];
+    const currencyTo = values[oppositeKey];
     const dataFrom = { ...values[name], [e.target.name]: e.target.value };
 
     const reqBody = {
@@ -36,8 +43,8 @@ const CurrencyInput = ({ name, currencies }: Props) => {
       .then((data) => {
         setValues((prev) => ({
           ...prev,
-          [theOtherOneKey]: {
-            currency: values[theOtherOneKey].currency,
+          [oppositeKey]: {
+            currency: values[oppositeKey].currency,
             amount: data.data.convertedAmount,
           },
         }));
@@ -45,25 +52,26 @@ const CurrencyInput = ({ name, currencies }: Props) => {
   };
 
   return (
-    <div>
-      <p style={{ marginTop: 10 }}>{name}</p>
-      <input
+    <StyledCurrencyInput>
+      <BodyText>{name}</BodyText>
+      <StyledInput
         type="text"
         name={`amount`}
         value={values[name].amount}
         onChange={handleChange}
       />
-      <select
+      <StyledSelect
         name={`currency`}
         value={values[name].currency}
-        onChange={handleChange}>
+        onChange={handleChange}
+      >
         {currencies.map((currency, i) => (
-          <option key={i} value={currency}>
+          <StyledOption key={i} value={currency}>
             {currency}
-          </option>
+          </StyledOption>
         ))}
-      </select>
-    </div>
+      </StyledSelect>
+    </StyledCurrencyInput>
   );
 };
 
