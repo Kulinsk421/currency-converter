@@ -4,7 +4,7 @@ import u from "../helpers/unit";
 
 export const StyledApp = styled.div``;
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
   background-color: ${colors.white};
   padding: 20px;
   box-shadow: ${shadows.dropShadow};

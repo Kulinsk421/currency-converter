@@ -1,26 +1,29 @@
 import React from "react";
 import { StyledForm } from "./Styles/StyledForm";
 
-type Values = { [key: string]: any };
+type Values = { [key: string]: string };
 
-export type FormContext<T = Values> = {
-  values: T;
+type FormContext = {
+  values: Values;
   setValues: React.Dispatch<React.SetStateAction<Values>>;
 };
 
 interface FormProps {
   initialValues: Values;
   children: (args: FormContext) => JSX.Element | JSX.Element[];
+  onSubmit: (e: React.FormEvent<HTMLFormElement>, values: Values) => void;
 }
 
 export const FormContext = React.createContext<FormContext>(null);
 
-const Form = ({ initialValues, children }: FormProps) => {
+const Form = ({ initialValues, children, onSubmit }: FormProps) => {
   const [values, setValues] = React.useState(initialValues);
 
   return (
     <FormContext.Provider value={{ values: values, setValues: setValues }}>
-      <StyledForm>{children({ values, setValues })}</StyledForm>
+      <StyledForm onSubmit={(e) => onSubmit(e, values)}>
+        {children({ values, setValues })}
+      </StyledForm>
     </FormContext.Provider>
   );
 };

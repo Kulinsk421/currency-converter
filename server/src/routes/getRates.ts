@@ -5,7 +5,7 @@ const router = express.Router();
 router.route("/").get(async (req, res) => {
   const getRatesRes = await fetchRates();
 
-  res.json({ data: getRatesRes.data.rates });
+  res.json({ data: getRatesRes.data });
 });
 
 export default router;
