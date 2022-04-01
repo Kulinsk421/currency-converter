@@ -31,4 +31,8 @@ export const Input = styled.input`
   &.result-field {
     color: ${colors.purple300};
   }
+
+  &.error {
+    border: 2px solid red;
+  }
 `;

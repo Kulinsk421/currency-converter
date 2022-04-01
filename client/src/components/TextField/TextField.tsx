@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FormContext } from "../Form/Form";
 import { StyledTextField, Label, Input } from "./Styles/StyledTextField";
@@ -10,6 +10,8 @@ interface InputProps {
   type?: string;
   className?: string;
   disabled?: boolean;
+  onInput?: (e) => void;
+  errMessage?: string;
 }
 
 const TextField = ({
@@ -19,6 +21,8 @@ const TextField = ({
   className,
   disabled,
   type,
+  onInput,
+  errMessage,
 }: InputProps) => {
   const { values, setValues } = useContext(FormContext);
 
@@ -41,7 +45,9 @@ const TextField = ({
         onChange={(e) => {
           setValues((prev) => ({ ...prev, [name]: e.target.value }));
         }}
+        onInput={onInput}
       />
+      <p>{errMessage}</p>
     </StyledTextField>
   );
 };

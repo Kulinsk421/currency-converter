@@ -3,8 +3,7 @@ import { colors, shadows } from "../../../helpers/consts";
 
 export const StyledButton = styled.button`
   margin-top: 50px;
-  width: 150px;
-  height: 40px;
+  padding: 10px 30px;
   border-radius: 40px;
   background-color: ${colors.blue300};
   color: ${colors.white};
@@ -15,5 +14,16 @@ export const StyledButton = styled.button`
     background-color: ${colors.purple300};
     box-shadow: ${shadows.dropShadow};
     cursor: pointer;
+  }
+
+  &.error {
+    border: 1px solid ${colors.grey500};
+    background-color: ${colors.grey300};
+    color: ${colors.grey500};
+
+    &:hover {
+      box-shadow: none;
+      cursor: not-allowed;
+    }
   }
 `;

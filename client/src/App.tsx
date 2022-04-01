@@ -15,10 +15,49 @@ import {
 
 function App() {
   const rates = useRates();
+  const [errMessage, setErrMessage] = useState("");
+  const [isValid, setIsValid] = useState(false);
   const [convertedData, setConvertedData] = useState({
     convertedAmount: null,
     currencyTo: ``,
   });
+
+  const handleChange = async (e, values) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`http://localhost:5000/conversion`, {
+        method: `post`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currencyFrom: values.currencyFrom,
+          currencyTo: values.currencyTo,
+          amountFrom: values.amountFrom,
+        }),
+      });
+      const data = await res.json();
+      setConvertedData({
+        convertedAmount: data.convertedAmount,
+        currencyTo: data.currencyTo,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const inputRegex = /^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)$/;
+
+  const validateInput = (e) => {
+    const input = e.target.value;
+    if (!inputRegex.test(input)) {
+      setErrMessage("Please enter a number");
+      setIsValid(true);
+    } else {
+      setErrMessage("");
+      setIsValid(false);
+    }
+  };
 
   if (rates.loading)
     return <PageHeader className="loading-message">Loading ...</PageHeader>;
@@ -29,29 +68,7 @@ function App() {
       <FormContainer>
         <SectionHeader>Calculator</SectionHeader>
         <Form
-          onSubmit={async (e, values) => {
-            e.preventDefault();
-            try {
-              const res = await fetch(`http://localhost:5000/conversion`, {
-                method: `post`,
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  currencyFrom: values.currencyFrom,
-                  currencyTo: values.currencyTo,
-                  amountFrom: values.amountFrom,
-                }),
-              });
-              const data = await res.json();
-              setConvertedData({
-                convertedAmount: data.convertedAmount,
-                currencyTo: data.currencyTo,
-              });
-            } catch (e) {
-              console.log(e);
-            }
-          }}
+          onSubmit={handleChange}
           initialValues={{
             amountFrom: `1`,
             currencyFrom: `USD`,
@@ -65,7 +82,9 @@ function App() {
                 <TextField
                   label={`Amount from:`}
                   name="amountFrom"
-                  type={"number"}
+                  onInput={validateInput}
+                  errMessage={errMessage}
+                  className={`${isValid ? "error" : ""}`}
                 />
                 <SelectField
                   label={`Currency from:`}
@@ -78,9 +97,7 @@ function App() {
                   value={
                     convertedData.convertedAmount &&
                     new Intl.NumberFormat("cs-CZ", {
-                      style: "currency",
                       maximumFractionDigits: 4,
-                      currency: convertedData.currencyTo,
                     }).format(convertedData.convertedAmount)
                   }
                   label={`Amount to:`}
@@ -92,7 +109,11 @@ function App() {
                   arrayOfOptions={Object.keys(rates.data.rates)}
                 />
               </Fields>
-              <Button text="CONVERT" type="submit" />
+              <Button
+                text="CONVERT"
+                type="submit"
+                className={`${isValid ? "error" : ""}`}
+              />
             </>
           )}
         </Form>
