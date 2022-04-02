@@ -6,6 +6,7 @@ export const StyledSelectField = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 250px;
+
   ${breakpoint.tabletPortrait} {
     flex-direction: column;
     gap: 20px;

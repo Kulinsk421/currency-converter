@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "./components/Button/Button";
-import Form, { FormContext } from "./components/Form/Form";
+import Form from "./components/Form/Form";
 import SelectField from "./components/SelectField/SelectField";
 import TextField from "./components/TextField/TextField";
 import { PageHeader } from "./components/Typo/PageHeader";
@@ -22,7 +22,7 @@ function App() {
     currencyTo: ``,
   });
 
-  const handleChange = async (e, values) => {
+  const handleSubmit = async (e, values) => {
     e.preventDefault();
     try {
       const res = await fetch(`http://localhost:5000/conversion`, {
@@ -46,7 +46,7 @@ function App() {
     }
   };
 
-  const inputRegex = /^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)$/;
+  const inputRegex = /^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)+$|^$/;
 
   const validateInput = (e) => {
     const input = e.target.value;
@@ -68,7 +68,7 @@ function App() {
       <FormContainer>
         <SectionHeader>Calculator</SectionHeader>
         <Form
-          onSubmit={handleChange}
+          onSubmit={handleSubmit}
           initialValues={{
             amountFrom: `1`,
             currencyFrom: `USD`,

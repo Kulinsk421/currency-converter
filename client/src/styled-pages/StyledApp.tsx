@@ -28,9 +28,9 @@ export const Fields = styled.div`
   gap: 50px 30px;
   justify-items: center;
   ${breakpoint.tabletPortrait} {
-    gap: 30px;
+    gap: 50px 30px;
   }
   ${breakpoint.phone} {
-    gap: 20px 0;
+    gap: 40px 10px;
   }
 `;

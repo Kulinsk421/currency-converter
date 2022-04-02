@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { FormContext } from "../Form/Form";
 import { Label } from "../TextField/Styles/StyledTextField";
 import { Option, Select, StyledSelectField } from "./Styles/StyledSelectField";

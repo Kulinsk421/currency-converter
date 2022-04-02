@@ -6,6 +6,7 @@ export const StyledTextField = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 350px;
+
   ${breakpoint.tabletPortrait} {
     width: 250px;
     flex-direction: column;
@@ -22,6 +23,7 @@ export const Input = styled.input`
   height: 40px;
   border: 1px solid ${colors.grey500};
   border-radius: 5px;
+
   &:focus {
     outline: none;
     border: 2px solid ${colors.blue300};
@@ -35,4 +37,17 @@ export const Input = styled.input`
   &.error {
     border: 2px solid red;
   }
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+export const ErrMessage = styled.span`
+  color: red;
+  height: 10px;
+  position: absolute;
+  top: 40px;
 `;

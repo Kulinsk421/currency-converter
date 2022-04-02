@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { FormContext } from "../Form/Form";
-import { StyledTextField, Label, Input } from "./Styles/StyledTextField";
+import {
+  StyledTextField,
+  Label,
+  Input,
+  ErrMessage,
+  InputContainer,
+} from "./Styles/StyledTextField";
 
 interface InputProps {
   name: string;
@@ -36,18 +42,20 @@ const TextField = ({
     <StyledTextField>
       <Label htmlFor={name}>{label}</Label>
 
-      <Input
-        type={type}
-        disabled={disabled}
-        className={className}
-        value={values[name]}
-        name={name}
-        onChange={(e) => {
-          setValues((prev) => ({ ...prev, [name]: e.target.value }));
-        }}
-        onInput={onInput}
-      />
-      <p>{errMessage}</p>
+      <InputContainer>
+        <Input
+          type={type}
+          disabled={disabled}
+          className={className}
+          value={values[name]}
+          name={name}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, [name]: e.target.value }));
+          }}
+          onInput={onInput}
+        />
+        <ErrMessage>{errMessage}</ErrMessage>
+      </InputContainer>
     </StyledTextField>
   );
 };
