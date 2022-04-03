@@ -4,10 +4,22 @@ interface BtnProps {
   text: string;
   type?: string;
   className?: string;
+  isLoading?: boolean;
 }
 
-const Button = ({ text, className }: BtnProps) => {
-  return <StyledButton className={className}>{text}</StyledButton>;
+const Button = ({ text, className, isLoading }: BtnProps) => {
+  return (
+    <StyledButton className={className}>
+      {isLoading ? (
+        <>
+          <img src={"/spinner.svg"} />
+          {`loading`}
+        </>
+      ) : (
+        text
+      )}
+    </StyledButton>
+  );
 };
 
 export default Button;

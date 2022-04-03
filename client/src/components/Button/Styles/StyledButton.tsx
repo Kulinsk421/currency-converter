@@ -7,9 +7,14 @@ export const StyledButton = styled.button`
   border-radius: 40px;
   background-color: ${colors.blue300};
   color: ${colors.white};
+  text-transform: uppercase;
   border: none;
   font-size: 1.7rem;
   letter-spacing: 0.02em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   &:hover {
     background-color: ${colors.purple300};
     box-shadow: ${shadows.dropShadow};
@@ -24,6 +29,17 @@ export const StyledButton = styled.button`
     &:hover {
       box-shadow: none;
       cursor: not-allowed;
+    }
+  }
+  img {
+    animation: Rotate 0.6s infinite linear;
+    @keyframes Rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 `;

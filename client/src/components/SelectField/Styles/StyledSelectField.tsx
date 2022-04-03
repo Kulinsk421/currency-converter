@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { breakpoint, colors, shadows } from "../../../helpers/consts";
+import ReactSelect from "react-select";
 
 export const StyledSelectField = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ export const StyledSelectField = styled.div`
     width: 80px;
   }
 `;
-export const Select = styled.select`
+export const Select = styled(ReactSelect)`
   text-align: center;
   font-size: 2rem;
   height: 40px;

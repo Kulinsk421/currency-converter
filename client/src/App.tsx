@@ -18,12 +18,19 @@ function App() {
   const [errMessage, setErrMessage] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [convertedData, setConvertedData] = useState({
-    convertedAmount: null,
-    currencyTo: ``,
+    isLoading: false,
+    data: {
+      convertedAmount: null,
+      currencyTo: ``,
+    },
   });
 
   const handleSubmit = async (e, values) => {
     e.preventDefault();
+    setConvertedData((prev) => ({
+      ...prev,
+      isLoading: true,
+    }));
     try {
       const res = await fetch(`http://localhost:5000/conversion`, {
         method: `post`,
@@ -38,8 +45,11 @@ function App() {
       });
       const data = await res.json();
       setConvertedData({
-        convertedAmount: data.convertedAmount,
-        currencyTo: data.currencyTo,
+        isLoading: false,
+        data: {
+          convertedAmount: data.convertedAmount,
+          currencyTo: data.currencyTo,
+        },
       });
     } catch (e) {
       console.log(e);
@@ -74,8 +84,7 @@ function App() {
             currencyFrom: `USD`,
             currencyTo: `RUB`,
             convertedAmount: ``,
-          }}
-        >
+          }}>
           {({ values }) => (
             <>
               <Fields>
@@ -89,16 +98,19 @@ function App() {
                 <SelectField
                   label={`Currency from:`}
                   name={`currencyFrom`}
-                  arrayOfOptions={Object.keys(rates.data.rates)}
+                  options={Object.keys(rates.data.rates).map((key) => ({
+                    label: key,
+                    value: key,
+                  }))}
                 />
                 <TextField
                   disabled={true}
                   className="result-field"
                   value={
-                    convertedData.convertedAmount &&
+                    convertedData.data.convertedAmount &&
                     new Intl.NumberFormat("cs-CZ", {
                       maximumFractionDigits: 4,
-                    }).format(convertedData.convertedAmount)
+                    }).format(convertedData.data.convertedAmount)
                   }
                   label={`Amount to:`}
                   name="convertedAmount"
@@ -106,10 +118,14 @@ function App() {
                 <SelectField
                   label={`Currency to:`}
                   name={`currencyTo`}
-                  arrayOfOptions={Object.keys(rates.data.rates)}
+                  options={Object.keys(rates.data.rates).map((key) => ({
+                    label: key,
+                    value: key,
+                  }))}
                 />
               </Fields>
               <Button
+                isLoading={convertedData.isLoading}
                 text="CONVERT"
                 type="submit"
                 className={`${isValid ? "error" : ""}`}
