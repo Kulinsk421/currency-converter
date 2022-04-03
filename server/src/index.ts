@@ -3,7 +3,7 @@ const app = express();
 const PORT = 5000;
 import bodyParser from "body-parser";
 import conversion from "./routes/conversion";
-import sendToDB from "./routes/sendToDB";
+import connectDB from "./routes/connectDB";
 import getRates from "./routes/getRates";
 import cors from "cors";
 
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/conversion", conversion);
 app.use("/get-rates", getRates);
-app.use("/sendToDB", sendToDB);
+app.use("/connectDB", connectDB);
 
 app.get("/", (req, res) => {
   res.send("For API endpoints navigate to /api/conversion or /api/getRates");

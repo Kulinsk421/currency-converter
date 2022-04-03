@@ -84,7 +84,8 @@ function App() {
             currencyFrom: `USD`,
             currencyTo: `RUB`,
             convertedAmount: ``,
-          }}>
+          }}
+        >
           {({ values }) => (
             <>
               <Fields>
