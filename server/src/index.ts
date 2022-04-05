@@ -14,7 +14,7 @@ app.use("/get-rates", getRates);
 app.use("/connectDB", connectDB);
 
 app.get("/", (req, res) => {
-  res.send("For API endpoints navigate to /api/conversion or /api/getRates");
+  res.send("For API endpoints navigate to /conversion or /getRates");
 });
 
 app.use(

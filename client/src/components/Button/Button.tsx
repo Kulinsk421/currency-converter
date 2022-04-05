@@ -12,7 +12,7 @@ const Button = ({ text, className, isLoading }: BtnProps) => {
     <StyledButton className={className}>
       {isLoading ? (
         <>
-          <img src={"/spinner.svg"} />
+          <img alt="spinner" src={"/spinner.svg"} />
           {`loading`}
         </>
       ) : (

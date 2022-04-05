@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import Form from "./components/Form/Form";
 import SelectField from "./components/SelectField/SelectField";
@@ -24,6 +24,23 @@ function App() {
       currencyTo: ``,
     },
   });
+  const [stats, setStats] = useState([
+    {
+      currencyTo: "",
+      amountFrom: "",
+    },
+  ]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/connectDB/sendFromDb`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((jsonRes) => setStats(jsonRes))
+      .catch((e) => console.log(e));
+  }, []);
 
   const handleSubmit = async (e, values) => {
     e.preventDefault();
@@ -43,6 +60,7 @@ function App() {
           amountFrom: values.amountFrom,
         }),
       });
+
       const data = await res.json();
       setConvertedData({
         isLoading: false,
@@ -50,6 +68,21 @@ function App() {
           convertedAmount: data.convertedAmount,
           currencyTo: data.currencyTo,
         },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
+      const res = await fetch(`http://localhost:5000/connectDB/sendToDb`, {
+        method: `post`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currencyTo: values.currencyTo,
+          amountFrom: values.amountFrom,
+        }),
       });
     } catch (e) {
       console.log(e);
@@ -137,6 +170,12 @@ function App() {
       </FormContainer>
       <StatisticsContainer>
         <SectionHeader>Statistics</SectionHeader>
+        {stats.map((stat, i) => (
+          <div key={i}>
+            <h2>{stat.amountFrom}</h2>
+            <h2>{stat.currencyTo}</h2>
+          </div>
+        ))}
       </StatisticsContainer>
     </StyledApp>
   );
