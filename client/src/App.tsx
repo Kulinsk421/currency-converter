@@ -1,105 +1,34 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "./components/Button/Button";
 import Form from "./components/Form/Form";
 import SelectField from "./components/SelectField/SelectField";
+import Stats from "./components/Stats/Stats";
 import TextField from "./components/TextField/TextField";
 import { PageHeader } from "./components/Typo/PageHeader";
 import { SectionHeader } from "./components/Typo/SectionHeader";
 import { useRates } from "./hooks/useRates";
-import {
-  Fields,
-  FormContainer,
-  StatisticsContainer,
-  StyledApp,
-} from "./styled-pages/StyledApp";
+import { Fields, FormContainer, StyledApp } from "./styled-pages/StyledApp";
 
 function App() {
   const rates = useRates();
-  const [errMessage, setErrMessage] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  const [convertedData, setConvertedData] = useState({
-    isLoading: false,
-    data: {
-      convertedAmount: null,
-      currencyTo: ``,
-    },
-  });
-  const [stats, setStats] = useState([
-    {
-      currencyTo: "",
-      amountFrom: "",
-    },
-  ]);
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/connectDB/sendFromDb`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((jsonRes) => setStats(jsonRes))
-      .catch((e) => console.log(e));
-  }, []);
-
-  const handleSubmit = async (e, values) => {
-    e.preventDefault();
-    setConvertedData((prev) => ({
-      ...prev,
-      isLoading: true,
-    }));
+  const handleSubmit = async (e, values, setIsLoading, setValues) => {
+    setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/conversion`, {
-        method: `post`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currencyFrom: values.currencyFrom,
-          currencyTo: values.currencyTo,
-          amountFrom: values.amountFrom,
-        }),
+      const data = await axios.post(`http://localhost:5000/api/conversion`, {
+        currencyFrom: values.currencyFrom,
+        currencyTo: values.currencyTo,
+        amountFrom: values.amountFrom,
       });
 
-      const data = await res.json();
-      setConvertedData({
-        isLoading: false,
-        data: {
-          convertedAmount: data.convertedAmount,
-          currencyTo: data.currencyTo,
-        },
-      });
+      setValues((prev) => ({
+        ...prev,
+        convertedAmount: data.data.convertedAmount,
+      }));
     } catch (e) {
       console.log(e);
     }
-
-    try {
-      const res = await fetch(`http://localhost:5000/connectDB/sendToDb`, {
-        method: `post`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currencyTo: values.currencyTo,
-          amountFrom: values.amountFrom,
-        }),
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const inputRegex = /^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)+$|^$/;
-
-  const validateInput = (e) => {
-    const input = e.target.value;
-    if (!inputRegex.test(input)) {
-      setErrMessage("Please enter a number");
-      setIsValid(true);
-    } else {
-      setErrMessage("");
-      setIsValid(false);
-    }
+    setIsLoading(false);
   };
 
   if (rates.loading)
@@ -112,23 +41,29 @@ function App() {
         <SectionHeader>Calculator</SectionHeader>
         <Form
           onSubmit={handleSubmit}
+          validate={(values) => {
+            const errors: any = {};
+
+            if (
+              !/^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)+$|^$/.test(
+                values.amountFrom
+              )
+            ) {
+              errors.amountFrom = "Please enter a number";
+            }
+
+            return errors;
+          }}
           initialValues={{
             amountFrom: `1`,
             currencyFrom: `USD`,
             currencyTo: `RUB`,
             convertedAmount: ``,
-          }}
-        >
-          {({ values }) => (
+          }}>
+          {({ values, errors, isLoading }) => (
             <>
               <Fields>
-                <TextField
-                  label={`Amount from:`}
-                  name="amountFrom"
-                  onInput={validateInput}
-                  errMessage={errMessage}
-                  className={`${isValid ? "error" : ""}`}
-                />
+                <TextField label={`Amount from:`} name="amountFrom" />
                 <SelectField
                   label={`Currency from:`}
                   name={`currencyFrom`}
@@ -140,12 +75,11 @@ function App() {
                 <TextField
                   disabled={true}
                   className="result-field"
-                  value={
-                    convertedData.data.convertedAmount &&
-                    new Intl.NumberFormat("cs-CZ", {
-                      maximumFractionDigits: 4,
-                    }).format(convertedData.data.convertedAmount)
-                  }
+                  formatValue={(value) => {
+                    return new Intl.NumberFormat("cs-CZ", {
+                      maximumFractionDigits: 2,
+                    }).format(Number(value));
+                  }}
                   label={`Amount to:`}
                   name="convertedAmount"
                 />
@@ -159,24 +93,16 @@ function App() {
                 />
               </Fields>
               <Button
-                isLoading={convertedData.isLoading}
+                isLoading={isLoading}
+                disabled={Object.keys(errors).length !== 0}
                 text="CONVERT"
                 type="submit"
-                className={`${isValid ? "error" : ""}`}
               />
             </>
           )}
         </Form>
       </FormContainer>
-      <StatisticsContainer>
-        <SectionHeader>Statistics</SectionHeader>
-        {stats.map((stat, i) => (
-          <div key={i}>
-            <h2>{stat.amountFrom}</h2>
-            <h2>{stat.currencyTo}</h2>
-          </div>
-        ))}
-      </StatisticsContainer>
+      <Stats />
     </StyledApp>
   );
 }

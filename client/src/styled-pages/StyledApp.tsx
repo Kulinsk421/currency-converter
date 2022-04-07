@@ -9,7 +9,6 @@ export const FormContainer = styled.div`
   padding: 20px;
   box-shadow: ${shadows.dropShadow};
   border-radius: 10px;
-  height: 45vh;
 `;
 
 export const StatisticsContainer = styled.div`
@@ -18,7 +17,6 @@ export const StatisticsContainer = styled.div`
   padding: 20px;
   box-shadow: ${shadows.dropShadow};
   border-radius: 10px;
-  height: 32vh;
 `;
 
 export const Fields = styled.div`

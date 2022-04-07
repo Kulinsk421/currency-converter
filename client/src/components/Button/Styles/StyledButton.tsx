@@ -15,6 +15,9 @@ export const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  &[disabled] {
+    background-color: gray;
+  }
   &:hover {
     background-color: ${colors.purple300};
     box-shadow: ${shadows.dropShadow};

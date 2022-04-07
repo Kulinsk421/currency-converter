@@ -16,8 +16,8 @@ interface InputProps {
   type?: string;
   className?: string;
   disabled?: boolean;
-  onInput?: (e) => void;
   errMessage?: string;
+  formatValue?: (value: string) => string;
 }
 
 const TextField = ({
@@ -27,10 +27,10 @@ const TextField = ({
   className,
   disabled,
   type,
-  onInput,
-  errMessage,
+  formatValue = (val) => val,
 }: InputProps) => {
-  const { values, setValues } = useContext(FormContext);
+  const { values, setValues, errors } = useContext(FormContext);
+  const error = errors?.[name];
 
   useEffect(() => {
     if (value) {
@@ -46,15 +46,14 @@ const TextField = ({
         <Input
           type={type}
           disabled={disabled}
-          className={className}
-          value={values[name]}
+          className={`${error ? "error" : ""} ${className}`}
+          value={formatValue(values[name])}
           name={name}
           onChange={(e) => {
             setValues((prev) => ({ ...prev, [name]: e.target.value }));
           }}
-          onInput={onInput}
         />
-        <ErrMessage>{errMessage}</ErrMessage>
+        {error && <ErrMessage>{error}</ErrMessage>}
       </InputContainer>
     </StyledTextField>
   );

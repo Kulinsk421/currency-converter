@@ -1,20 +1,21 @@
+require("dotenv").config();
+import bodyParser from "body-parser";
+import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
+import connectToDB from "./middleware/connectToDB";
+import router from "./routes";
 const app = express();
 const PORT = 5000;
-import bodyParser from "body-parser";
-import conversion from "./routes/conversion";
-import connectDB from "./routes/connectDB";
-import getRates from "./routes/getRates";
-import cors from "cors";
 
 app.use(cors());
+app.use(connectToDB);
 app.use(bodyParser.json());
-app.use("/conversion", conversion);
-app.use("/get-rates", getRates);
-app.use("/connectDB", connectDB);
+app.use(`/api`, router);
 
 app.get("/", (req, res) => {
-  res.send("For API endpoints navigate to /conversion or /getRates");
+  res.send(
+    "For API endpoints navigate to /api/get-rates and /api/get-statistics"
+  );
 });
 
 app.use(

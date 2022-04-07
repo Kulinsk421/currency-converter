@@ -5,11 +5,12 @@ interface BtnProps {
   type?: string;
   className?: string;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
-const Button = ({ text, className, isLoading }: BtnProps) => {
+const Button = ({ text, className, isLoading, disabled = false }: BtnProps) => {
   return (
-    <StyledButton className={className}>
+    <StyledButton className={className} disabled={disabled}>
       {isLoading ? (
         <>
           <img alt="spinner" src={"/spinner.svg"} />

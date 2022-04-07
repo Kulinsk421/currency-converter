@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 export const useRates = () => {
@@ -9,12 +10,11 @@ export const useRates = () => {
   React.useEffect(() => {
     async function fetchRates() {
       try {
-        const apiUrl = `http://localhost:5000/get-rates`;
-        const json = await fetch(apiUrl);
-        const data = await json.json();
+        const apiUrl = `http://localhost:5000/api/get-rates`;
+        const data = await axios.get(apiUrl);
         setRates({
           loading: false,
-          data: data.data,
+          data: data.data.data,
         });
       } catch (e) {
         console.log(e);
