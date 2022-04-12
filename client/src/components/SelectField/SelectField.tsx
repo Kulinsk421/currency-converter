@@ -1,8 +1,8 @@
 import React from "react";
 import { ActionMeta } from "react-select";
 import { FormContext } from "../Form/Form";
-import { Label } from "../TextField/Styles/StyledTextField";
-import { Option, Select, StyledSelectField } from "./Styles/StyledSelectField";
+import { customStyles } from "./Styles/CustomSelect";
+import { Select, StyledSelectField } from "./Styles/StyledSelectField";
 
 type Option = {
   label: string;
@@ -11,17 +11,19 @@ type Option = {
 
 interface SelectFieldProps {
   options: Option[];
-  label: string;
   name: string;
 }
 
-const SelectField = ({ options, name, label }: SelectFieldProps) => {
+const SelectField = ({ options, name }: SelectFieldProps) => {
   const { values, setValues } = React.useContext(FormContext);
 
   return (
     <StyledSelectField>
-      <Label htmlFor={name}>{label}</Label>
       <Select
+        components={{
+          IndicatorSeparator: () => null,
+        }}
+        styles={customStyles}
         name={name}
         value={options.find((option) => option.value === values[name])}
         onChange={(option: Option | null, meta: ActionMeta<Option>) => {

@@ -1,42 +1,47 @@
 import useStats from "../../hooks/useStats";
-import { StatisticsContainer } from "../../styled-pages/StyledApp";
-import { SectionHeader } from "../Typo/SectionHeader";
-import { StyledStats } from "./Styles/StyledStats";
+import { BodyText } from "../Typo/BodyText";
+import { Header } from "../Typo/Header";
+import { PageHeader } from "../Typo/PageHeader";
+import {
+  StatContent,
+  StatItem,
+  StatLoading,
+  StyledStats,
+} from "./Styles/StyledStats";
 
 const Stats = () => {
   const { statsData, loading } = useStats();
 
   return (
     <StyledStats>
-      <StatisticsContainer>
-        <SectionHeader>Statistics</SectionHeader>
-        <div>
-          {loading && <div>Loading</div>}
-          {!loading && (
-            <div>
-              {statsData && statsData.totalConversions} Conversions done
-            </div>
-          )}
-        </div>
-        <div>
-          {loading && <div>Loading</div>}
-          {!loading && (
-            <div>
-              {statsData && statsData.favCurrency.element} is the most favourite
-              target currency
-            </div>
-          )}
-        </div>
-        <div>
-          {loading && <div>Loading</div>}
-          {!loading && (
-            <div>
-              {statsData && statsData.totalAmount} USD already converted to
-              other currencies
-            </div>
-          )}
-        </div>
-      </StatisticsContainer>
+      <PageHeader>Stats</PageHeader>
+      <StatItem>
+        {loading && <StatLoading>Loading</StatLoading>}
+        {!loading && (
+          <StatContent>
+            <Header>Conversions done</Header>
+            <BodyText>{statsData && statsData.totalConversions}</BodyText>
+          </StatContent>
+        )}
+      </StatItem>
+      <StatItem>
+        {loading && <StatLoading>Loading</StatLoading>}
+        {!loading && (
+          <StatContent>
+            <Header>Most favorite target currency</Header>
+            <BodyText>{statsData && statsData.favCurrency.element} </BodyText>
+          </StatContent>
+        )}
+      </StatItem>
+      <StatItem>
+        {loading && <StatLoading>Loading</StatLoading>}
+        {!loading && (
+          <StatContent>
+            <Header>Converted in total</Header>
+            <BodyText>{statsData && statsData.totalAmount} USD </BodyText>
+          </StatContent>
+        )}
+      </StatItem>
     </StyledStats>
   );
 };

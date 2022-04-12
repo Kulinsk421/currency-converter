@@ -1,34 +1,30 @@
 import styled from "styled-components";
-import { breakpoint, colors, shadows } from "../helpers/consts";
-import u from "../helpers/unit";
+import { colors } from "../helpers/consts";
 
-export const StyledApp = styled.div``;
-
-export const FormContainer = styled.div`
-  background-color: ${colors.white};
-  padding: 20px;
-  box-shadow: ${shadows.dropShadow};
-  border-radius: 10px;
+export const StyledApp = styled.div`
+  padding: 2%;
 `;
 
-export const StatisticsContainer = styled.div`
-  margin-top: 50px;
-  background-color: ${colors.white};
-  padding: 20px;
-  box-shadow: ${shadows.dropShadow};
-  border-radius: 10px;
+export const InputFields = styled.div`
+  width: 98%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid ${colors.black};
+  border-top: 2px solid ${colors.black};
 `;
 
-export const Fields = styled.div`
-  padding: 0 ${u(1)};
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px 30px;
-  justify-items: center;
-  ${breakpoint.tabletPortrait} {
-    gap: 50px 30px;
-  }
-  ${breakpoint.phone} {
-    gap: 40px 10px;
-  }
+export const AppLoader = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const ResultFields = styled.div`
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 98%;
+  border-bottom: 2px solid ${colors.black};
 `;

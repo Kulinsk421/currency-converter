@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
 import { breakpoint, colors } from "./helpers/consts";
-import u from "./helpers/unit";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -22,9 +21,8 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
   body{
-    background-color: ${colors.grey300};
+    background-color: ${colors.grey400};
     font-family: 'Lato', sans-serif;
-    padding: 0 ${u(1)}
   }
 `;
 

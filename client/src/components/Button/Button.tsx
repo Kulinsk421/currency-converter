@@ -1,3 +1,4 @@
+import Spinner from "../Spinner/Spinner";
 import { StyledButton } from "./Styles/StyledButton";
 
 interface BtnProps {
@@ -13,7 +14,7 @@ const Button = ({ text, className, isLoading, disabled = false }: BtnProps) => {
     <StyledButton className={className} disabled={disabled}>
       {isLoading ? (
         <>
-          <img alt="spinner" src={"/spinner.svg"} />
+          <Spinner />
           {`loading`}
         </>
       ) : (

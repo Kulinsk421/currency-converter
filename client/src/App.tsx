@@ -1,13 +1,18 @@
 import axios from "axios";
 import Button from "./components/Button/Button";
 import Form from "./components/Form/Form";
+import Modal from "./components/Modal/Modal";
 import SelectField from "./components/SelectField/SelectField";
-import Stats from "./components/Stats/Stats";
+import Spinner from "./components/Spinner/Spinner";
 import TextField from "./components/TextField/TextField";
-import { PageHeader } from "./components/Typo/PageHeader";
-import { SectionHeader } from "./components/Typo/SectionHeader";
+import { BodyText } from "./components/Typo/BodyText";
 import { useRates } from "./hooks/useRates";
-import { Fields, FormContainer, StyledApp } from "./styled-pages/StyledApp";
+import {
+  AppLoader,
+  InputFields,
+  ResultFields,
+  StyledApp,
+} from "./styled-pages/StyledApp";
 
 function App() {
   const rates = useRates();
@@ -32,77 +37,81 @@ function App() {
   };
 
   if (rates.loading)
-    return <PageHeader className="loading-message">Loading ...</PageHeader>;
+    return (
+      <AppLoader>
+        <Spinner className="page-loader" />
+      </AppLoader>
+    );
 
   return (
     <StyledApp>
-      <PageHeader>Currency Converter</PageHeader>
-      <FormContainer>
-        <SectionHeader>Calculator</SectionHeader>
-        <Form
-          onSubmit={handleSubmit}
-          validate={(values) => {
-            const errors: any = {};
+      <Form
+        onSubmit={handleSubmit}
+        validate={(values) => {
+          const errors: any = {};
 
-            if (
-              !/^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)+$|^$/.test(
-                values.amountFrom
-              )
-            ) {
-              errors.amountFrom = "Please enter a number";
-            }
+          if (
+            !/^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)+$/.test(values.amountFrom)
+          ) {
+            errors.amountFrom = "Please enter a number";
+          }
 
-            return errors;
-          }}
-          initialValues={{
-            amountFrom: `1`,
-            currencyFrom: `USD`,
-            currencyTo: `RUB`,
-            convertedAmount: ``,
-          }}>
-          {({ values, errors, isLoading }) => (
-            <>
-              <Fields>
-                <TextField label={`Amount from:`} name="amountFrom" />
-                <SelectField
-                  label={`Currency from:`}
-                  name={`currencyFrom`}
-                  options={Object.keys(rates.data.rates).map((key) => ({
-                    label: key,
-                    value: key,
-                  }))}
-                />
-                <TextField
-                  disabled={true}
-                  className="result-field"
-                  formatValue={(value) => {
-                    return new Intl.NumberFormat("cs-CZ", {
-                      maximumFractionDigits: 2,
-                    }).format(Number(value));
-                  }}
-                  label={`Amount to:`}
-                  name="convertedAmount"
-                />
-                <SelectField
-                  label={`Currency to:`}
-                  name={`currencyTo`}
-                  options={Object.keys(rates.data.rates).map((key) => ({
-                    label: key,
-                    value: key,
-                  }))}
-                />
-              </Fields>
-              <Button
-                isLoading={isLoading}
-                disabled={Object.keys(errors).length !== 0}
-                text="CONVERT"
-                type="submit"
+          return errors;
+        }}
+        initialValues={{
+          amountFrom: `1`,
+          currencyFrom: `USD`,
+          currencyTo: `RUB`,
+          convertedAmount: ``,
+        }}
+      >
+        {({ values, errors, isLoading }) => (
+          <>
+            <InputFields>
+              <TextField name="amountFrom" />
+              <SelectField
+                name={`currencyFrom`}
+                options={Object.keys(rates.data.rates).map((key) => ({
+                  label: key,
+                  value: key,
+                }))}
               />
-            </>
-          )}
-        </Form>
-      </FormContainer>
-      <Stats />
+              <BodyText className="currency-to">to</BodyText>
+              <SelectField
+                name={`currencyTo`}
+                options={Object.keys(rates.data.rates).map((key) => ({
+                  label: key,
+                  value: key,
+                }))}
+              />
+            </InputFields>
+            <ResultFields>
+              <BodyText>is</BodyText>
+              <TextField
+                disabled={true}
+                className="result-field"
+                formatValue={(value) => {
+                  return new Intl.NumberFormat("cs-CZ", {
+                    style: "currency",
+                    maximumFractionDigits: 4,
+                    currency: values.currencyTo,
+                  }).format(Number(value));
+                }}
+                name="convertedAmount"
+              />
+            </ResultFields>
+            <Button
+              isLoading={isLoading}
+              disabled={Object.keys(errors).length !== 0}
+              text="CONVERT"
+              type="submit"
+            />
+            <p>{values.convertedAmount}</p>
+          </>
+        )}
+      </Form>
+
+      <Modal />
     </StyledApp>
   );
 }

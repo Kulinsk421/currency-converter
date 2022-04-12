@@ -1,41 +1,33 @@
 import styled from "styled-components";
-import { breakpoint, colors, shadows } from "../../../helpers/consts";
+import { colors, shadows } from "../../../helpers/consts";
 
 export const StyledTextField = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 350px;
-
-  ${breakpoint.tabletPortrait} {
-    width: 250px;
-    flex-direction: column;
-    gap: 20px;
-  }
-  ${breakpoint.phone} {
-    width: 130px;
-  }
+  width: 400px;
 `;
 export const Label = styled.label``;
 export const Input = styled.input`
-  text-align: center;
-  font-size: 2rem;
-  height: 40px;
-  border: 1px solid ${colors.grey500};
-  border-radius: 5px;
+  text-align: left;
+  font-size: 10rem;
+  width: 350px;
+  border: none;
+  background-color: ${colors.grey400};
+  color: ${colors.black};
 
   &:focus {
     outline: none;
-    border: 2px solid ${colors.blue300};
-    box-shadow: ${shadows.dropShadow};
+    border: 1px solid ${colors.black};
   }
 
   &.result-field {
-    color: ${colors.purple300};
+    border: none;
+    background-color: ${colors.grey400};
+    color: ${colors.black};
   }
 
   &.error {
-    border: 2px solid red;
+    border: 2px solid ${colors.red600};
   }
 `;
 
@@ -46,8 +38,9 @@ export const InputContainer = styled.div`
 `;
 
 export const ErrMessage = styled.span`
-  color: red;
-  height: 10px;
+  color: ${colors.red600};
+  font-size: 4rem;
   position: absolute;
-  top: 40px;
+  width: 500px;
+  top: 130px;
 `;

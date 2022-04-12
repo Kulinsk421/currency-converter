@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { FormContext } from "../Form/Form";
 import {
   StyledTextField,
-  Label,
   Input,
   ErrMessage,
   InputContainer,
@@ -11,7 +10,6 @@ import {
 
 interface InputProps {
   name: string;
-  label: JSX.Element | string;
   value?: string;
   type?: string;
   className?: string;
@@ -22,7 +20,7 @@ interface InputProps {
 
 const TextField = ({
   name,
-  label,
+
   value,
   className,
   disabled,
@@ -40,8 +38,6 @@ const TextField = ({
 
   return (
     <StyledTextField>
-      <Label htmlFor={name}>{label}</Label>
-
       <InputContainer>
         <Input
           type={type}

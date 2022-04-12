@@ -2,9 +2,9 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   grey300: "#EAEAEA",
+  grey400: "#ababab",
   grey500: "#4d4949",
-  blue300: "#24AFCE",
-  purple300: "#9e2fbd",
+  red600: "#cc0000",
 } as const;
 
 export type ColorKeys = keyof typeof colors;
