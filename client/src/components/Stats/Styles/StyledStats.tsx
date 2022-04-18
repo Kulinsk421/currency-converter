@@ -11,6 +11,7 @@ export const StyledStats = styled.div`
 export const StatItem = styled.div`
   padding: 20px 0;
   border-bottom: 2px solid ${colors.black};
+  height: 138px;
 `;
 
 export const StatContent = styled.div`
@@ -19,4 +20,8 @@ export const StatContent = styled.div`
   align-items: flex-end;
 `;
 
-export const StatLoading = styled.div``;
+export const StatLoading = styled.div`
+  text-align: end;
+  padding: 50px 0;
+  border-bottom: 2px solid ${colors.black};
+`;

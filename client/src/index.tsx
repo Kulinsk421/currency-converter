@@ -16,8 +16,11 @@ export const GlobalStyle = createGlobalStyle`
     ${breakpoint.monitor} {
       font-size: 80%;
     }
-    ${breakpoint.phone} {
+    ${breakpoint.tabletLandscape} {
       font-size: 50%;
+    }
+    ${breakpoint.phone} {
+      font-size: 40%;
     }
   }
   body{

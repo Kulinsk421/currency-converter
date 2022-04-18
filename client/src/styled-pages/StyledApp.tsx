@@ -6,7 +6,7 @@ export const StyledApp = styled.div`
 `;
 
 export const InputFields = styled.div`
-  width: 98%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid ${colors.black};
@@ -25,6 +25,14 @@ export const ResultFields = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 98%;
+  width: 100%;
   border-bottom: 2px solid ${colors.black};
+`;
+
+export const ButtonsSection = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 250px;
 `;

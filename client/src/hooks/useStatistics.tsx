@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useStats = () => {
+const useStatistics = () => {
   const [statsData, setStatsData] = useState(null);
   const [loading, setLoading] = useState(false);
   const statsUrl = `http://localhost:5000/api/get-statistics`;
@@ -26,4 +26,4 @@ const useStats = () => {
   };
 };
 
-export default useStats;
+export default useStatistics;

@@ -7,7 +7,7 @@ export const customStyles = {
     borderColor: state.isFocused ? "#000000" : "#ababab",
     boxShadow: state.isFocused ? null : null,
     "&:hover": {
-      borderColor: state.isFocused ? "#000000" : "#ababab",
+      borderColor: "#000000",
     },
   }),
   option: (base, state) => ({
@@ -16,9 +16,11 @@ export const customStyles = {
     color: state.isFocused ? "#FFFFFF" : "#000000",
     overflow: null,
     fontSize: "6rem",
+
     "&:hover": {
       color: "#FFFFFF",
       background: "#000000",
+      cursor: "pointer",
     },
   }),
   dropdownIndicator: (base) => ({

@@ -1,4 +1,4 @@
-import useStats from "../../hooks/useStats";
+import useStatistics from "../../hooks/useStatistics";
 import { BodyText } from "../Typo/BodyText";
 import { Header } from "../Typo/Header";
 import { PageHeader } from "../Typo/PageHeader";
@@ -10,13 +10,17 @@ import {
 } from "./Styles/StyledStats";
 
 const Stats = () => {
-  const { statsData, loading } = useStats();
+  const { statsData, loading } = useStatistics();
 
   return (
     <StyledStats>
       <PageHeader>Stats</PageHeader>
       <StatItem>
-        {loading && <StatLoading>Loading</StatLoading>}
+        {loading && (
+          <StatLoading>
+            <Header>Loading</Header>
+          </StatLoading>
+        )}
         {!loading && (
           <StatContent>
             <Header>Conversions done</Header>
@@ -25,7 +29,11 @@ const Stats = () => {
         )}
       </StatItem>
       <StatItem>
-        {loading && <StatLoading>Loading</StatLoading>}
+        {loading && (
+          <StatLoading>
+            <Header>Loading</Header>
+          </StatLoading>
+        )}
         {!loading && (
           <StatContent>
             <Header>Most favorite target currency</Header>
@@ -34,7 +42,11 @@ const Stats = () => {
         )}
       </StatItem>
       <StatItem>
-        {loading && <StatLoading>Loading</StatLoading>}
+        {loading && (
+          <StatLoading>
+            <Header>Loading</Header>
+          </StatLoading>
+        )}
         {!loading && (
           <StatContent>
             <Header>Converted in total</Header>

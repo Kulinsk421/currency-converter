@@ -14,7 +14,7 @@ const Button = ({ text, className, isLoading, disabled = false }: BtnProps) => {
     <StyledButton className={className} disabled={disabled}>
       {isLoading ? (
         <>
-          <Spinner />
+          <Spinner className="btn-loader" />
           {`loading`}
         </>
       ) : (

@@ -17,7 +17,7 @@ const Modal = () => {
     <StyledModal>
       <ModalRoot>
         <Trigger>
-          <Header>Statistics</Header>
+          <Header className="stats-trigger">Statistics</Header>
         </Trigger>
         <Portal>
           <Overlay />

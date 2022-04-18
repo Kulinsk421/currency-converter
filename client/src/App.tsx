@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "./components/Button/Button";
 import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
+import ResultField from "./components/ResultField/ResultField";
 import SelectField from "./components/SelectField/SelectField";
 import Spinner from "./components/Spinner/Spinner";
 import TextField from "./components/TextField/TextField";
@@ -9,6 +10,7 @@ import { BodyText } from "./components/Typo/BodyText";
 import { useRates } from "./hooks/useRates";
 import {
   AppLoader,
+  ButtonsSection,
   InputFields,
   ResultFields,
   StyledApp,
@@ -87,31 +89,30 @@ function App() {
             </InputFields>
             <ResultFields>
               <BodyText>is</BodyText>
-              <TextField
-                disabled={true}
-                className="result-field"
+              <ResultField
+                value={values.convertedAmount}
                 formatValue={(value) => {
                   return new Intl.NumberFormat("cs-CZ", {
                     style: "currency",
-                    maximumFractionDigits: 4,
+                    maximumFractionDigits: 3,
                     currency: values.currencyTo,
                   }).format(Number(value));
                 }}
-                name="convertedAmount"
               />
             </ResultFields>
-            <Button
-              isLoading={isLoading}
-              disabled={Object.keys(errors).length !== 0}
-              text="CONVERT"
-              type="submit"
-            />
-            <p>{values.convertedAmount}</p>
+
+            <ButtonsSection>
+              <Modal />
+              <Button
+                isLoading={isLoading}
+                disabled={Object.keys(errors).length !== 0}
+                text="CONVERT"
+                type="submit"
+              />
+            </ButtonsSection>
           </>
         )}
       </Form>
-
-      <Modal />
     </StyledApp>
   );
 }

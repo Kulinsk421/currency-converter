@@ -14,4 +14,8 @@ export const StyledSpinner = styled.img`
   &.page-loader {
     width: 7rem;
   }
+
+  &.btn-loader {
+    margin-right: 20px;
+  }
 `;

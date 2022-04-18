@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useContext } from "react";
 import { FormContext } from "../Form/Form";
-import {
-  StyledTextField,
-  Input,
-  ErrMessage,
-  InputContainer,
-} from "./Styles/StyledTextField";
+import { StyledTextField, Input, ErrMessage } from "./Styles/StyledTextField";
 
 interface InputProps {
   name: string;
@@ -15,18 +10,9 @@ interface InputProps {
   className?: string;
   disabled?: boolean;
   errMessage?: string;
-  formatValue?: (value: string) => string;
 }
 
-const TextField = ({
-  name,
-
-  value,
-  className,
-  disabled,
-  type,
-  formatValue = (val) => val,
-}: InputProps) => {
+const TextField = ({ name, value, className, disabled, type }: InputProps) => {
   const { values, setValues, errors } = useContext(FormContext);
   const error = errors?.[name];
 
@@ -38,19 +24,17 @@ const TextField = ({
 
   return (
     <StyledTextField>
-      <InputContainer>
-        <Input
-          type={type}
-          disabled={disabled}
-          className={`${error ? "error" : ""} ${className}`}
-          value={formatValue(values[name])}
-          name={name}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, [name]: e.target.value }));
-          }}
-        />
-        {error && <ErrMessage>{error}</ErrMessage>}
-      </InputContainer>
+      <Input
+        type={type}
+        disabled={disabled}
+        className={`${error ? "error" : ""} ${className}`}
+        value={values[name]}
+        name={name}
+        onChange={(e) => {
+          setValues((prev) => ({ ...prev, [name]: e.target.value }));
+        }}
+      />
+      {error && <ErrMessage>{error}</ErrMessage>}
     </StyledTextField>
   );
 };
