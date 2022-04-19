@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { colors } from "../../../helpers/consts";
 
-export const StyledButton = styled.button`
+export const StyledButton = styled(motion.button)`
   padding: 20px 60px;
   font-size: 5rem;
   border-radius: 60px;
@@ -16,6 +17,9 @@ export const StyledButton = styled.button`
   &[disabled] {
     border: 1px solid ${colors.grey400};
     color: ${colors.grey400};
+    &:hover {
+      cursor: not-allowed;
+    }
   }
   &:hover {
     cursor: pointer;

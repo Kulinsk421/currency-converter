@@ -103,6 +103,7 @@ function App() {
 
             <ButtonsSection>
               <Modal />
+
               <Button
                 isLoading={isLoading}
                 disabled={Object.keys(errors).length !== 0}

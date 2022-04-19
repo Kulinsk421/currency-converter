@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { colors } from "../../../helpers/consts";
 
-export const StyledStats = styled.div`
+export const StyledStats = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   padding: 2%;

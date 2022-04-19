@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 import { colors } from "../../../helpers/consts";
+import { motion } from "framer-motion";
 
 export const StyledModal = styled.div`
   position: relative;
@@ -36,30 +37,21 @@ export const Content = styled(Dialog.Content)`
 
 export const Close = styled(Dialog.Close)`
   position: absolute;
+  right: 2%;
+  top: 7%;
+  border: none;
+  border-radius: 80px;
+`;
+
+export const CloseBtn = styled(motion.div)`
   color: ${colors.white};
   background-color: ${colors.grey400};
   height: 80px;
   width: 80px;
-  position: absolute;
-  right: 2%;
-  top: 7%;
   border: 1px solid ${colors.white};
   border-radius: 80px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
-    img {
-      animation: Rotate 0.6s linear;
-      @keyframes Rotate {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
 `;

@@ -1,9 +1,9 @@
 import Img from "../Img/Img";
 import Stats from "../Stats/Stats";
 import { Header } from "../Typo/Header";
-
 import {
   Close,
+  CloseBtn,
   Content,
   ModalRoot,
   Overlay,
@@ -11,6 +11,7 @@ import {
   StyledModal,
   Trigger,
 } from "./Styles/StyledModal";
+import { buttonVariants } from "../../helpers/MotionVariants";
 
 const Modal = () => {
   return (
@@ -24,7 +25,9 @@ const Modal = () => {
           <Content>
             <Stats />
             <Close>
-              <Img src="/closeIcon.svg" alt="Close icon" />
+              <CloseBtn variants={buttonVariants} whileHover="hover">
+                <Img src="/closeIcon.svg" alt="Close icon" />
+              </CloseBtn>
             </Close>
           </Content>
         </Portal>

@@ -1,3 +1,4 @@
+import { statsVariants } from "../../helpers/MotionVariants";
 import useStatistics from "../../hooks/useStatistics";
 import { BodyText } from "../Typo/BodyText";
 import { Header } from "../Typo/Header";
@@ -13,7 +14,12 @@ const Stats = () => {
   const { statsData, loading } = useStatistics();
 
   return (
-    <StyledStats>
+    <StyledStats
+      key="content"
+      variants={statsVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <PageHeader>Stats</PageHeader>
       <StatItem>
         {loading && (
