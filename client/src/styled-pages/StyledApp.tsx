@@ -55,10 +55,13 @@ export const ButtonsSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 250px;
+  padding-top: 200px;
+  ${breakpoint.smallNotebook} {
+    padding-top: 150px;
+  }
   ${breakpoint.tabletPortrait} {
     flex-direction: column-reverse;
     gap: 80px;
-    padding-top: 200px;
+    padding-top: 100px;
   }
 `;

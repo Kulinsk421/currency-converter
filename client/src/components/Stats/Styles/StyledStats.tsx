@@ -6,7 +6,7 @@ import u from "../../../helpers/unit";
 export const StyledStats = styled(motion.div)`
   width: 100vw;
   height: 100vh;
-  padding: ${u(1)} ${u(0.5)};
+  padding: ${u(0.5)};
   overflow: auto;
   ${breakpoint.tabletPortrait} {
     margin-top: 40px;

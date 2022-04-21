@@ -39,17 +39,17 @@ export const Content = styled(Dialog.Content)`
 export const Close = styled(Dialog.Close)`
   position: fixed;
   right: 3%;
-  top: ${u(1.2)};
+  top: ${u(0.8)};
   border: none;
   border-radius: 80px;
   ${breakpoint.tabletPortrait} {
-    top: ${u(2.2)};
+    top: ${u(1.7)};
   }
   ${breakpoint.phone} {
-    top: ${u(2.8)};
+    top: ${u(2.2)};
   }
   ${breakpoint.miniPhone} {
-    top: ${u(3.8)};
+    top: ${u(3.4)};
   }
 `;
 

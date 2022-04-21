@@ -94,16 +94,18 @@ function App() {
             </InputFields>
             <ResultFields>
               <BodyText>is</BodyText>
-              <ResultField
-                value={values.convertedAmount}
-                formatValue={(value) => {
-                  return new Intl.NumberFormat("cs-CZ", {
-                    style: "currency",
-                    maximumFractionDigits: 2,
-                    currency: values.currencyTo,
-                  }).format(Number(value));
-                }}
-              />
+              {
+                <ResultField
+                  value={values.convertedAmount}
+                  formatValue={(value) => {
+                    return new Intl.NumberFormat("cs-CZ", {
+                      style: "currency",
+                      maximumFractionDigits: 2,
+                      currency: values.currencyTo,
+                    }).format(Number(value));
+                  }}
+                />
+              }
             </ResultFields>
 
             <ButtonsSection>
