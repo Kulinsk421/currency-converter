@@ -56,7 +56,9 @@ const Stats = () => {
         {!loading && (
           <StatContent>
             <Header>Converted in total</Header>
-            <BodyText>{statsData && statsData.totalAmount} USD </BodyText>
+            <BodyText className="result">
+              {statsData && statsData.totalAmount} USD{" "}
+            </BodyText>
           </StatContent>
         )}
       </StatItem>

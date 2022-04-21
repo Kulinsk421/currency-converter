@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
-import { colors } from "../../../helpers/consts";
+import { breakpoint, colors } from "../../../helpers/consts";
 import { motion } from "framer-motion";
+import u from "../../../helpers/unit";
 
 export const StyledModal = styled.div`
   position: relative;
@@ -36,11 +37,20 @@ export const Content = styled(Dialog.Content)`
 `;
 
 export const Close = styled(Dialog.Close)`
-  position: absolute;
-  right: 2%;
-  top: 7%;
+  position: fixed;
+  right: 3%;
+  top: ${u(1.2)};
   border: none;
   border-radius: 80px;
+  ${breakpoint.tabletPortrait} {
+    top: ${u(2.2)};
+  }
+  ${breakpoint.phone} {
+    top: ${u(2.8)};
+  }
+  ${breakpoint.miniPhone} {
+    top: ${u(3.8)};
+  }
 `;
 
 export const CloseBtn = styled(motion.div)`
@@ -54,4 +64,14 @@ export const CloseBtn = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${breakpoint.tabletLandscape} {
+    height: 65px;
+    width: 65px;
+    border-radius: 65px;
+  }
+  ${breakpoint.phone} {
+    height: 55px;
+    width: 55px;
+    border-radius: 55px;
+  }
 `;

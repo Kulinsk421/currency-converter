@@ -14,14 +14,18 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
     ${breakpoint.monitor} {
-      font-size: 80%;
+      font-size: 75%;
     }
     ${breakpoint.tabletLandscape} {
-      font-size: 50%;
+      font-size: 55%;
+    }
+    ${breakpoint.tabletPortrait}{
+      font-size: 45%;
     }
     ${breakpoint.phone} {
-      font-size: 40%;
+      font-size: 30%;
     }
+
   }
   body{
     background-color: ${colors.grey400};

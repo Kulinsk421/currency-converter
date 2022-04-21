@@ -40,7 +40,6 @@ export const customStyles = {
   input: (base) => ({
     ...base,
     color: "#000000",
-    width: 250,
     display: "inline-block",
     fontSize: "10rem",
   }),

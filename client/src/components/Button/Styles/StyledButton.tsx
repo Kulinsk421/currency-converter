@@ -18,7 +18,7 @@ export const StyledButton = styled(motion.button)`
     border: 1px solid ${colors.grey400};
     color: ${colors.grey400};
     &:hover {
-      cursor: not-allowed;
+      cursor: default;
     }
   }
   &:hover {

@@ -11,6 +11,7 @@ import { useRates } from "./hooks/useRates";
 import {
   AppLoader,
   ButtonsSection,
+  Field,
   InputFields,
   ResultFields,
   StyledApp,
@@ -70,22 +71,26 @@ function App() {
         {({ values, errors, isLoading }) => (
           <>
             <InputFields>
-              <TextField name="amountFrom" />
-              <SelectField
-                name={`currencyFrom`}
-                options={Object.keys(rates.data.rates).map((key) => ({
-                  label: key,
-                  value: key,
-                }))}
-              />
-              <BodyText className="currency-to">to</BodyText>
-              <SelectField
-                name={`currencyTo`}
-                options={Object.keys(rates.data.rates).map((key) => ({
-                  label: key,
-                  value: key,
-                }))}
-              />
+              <Field>
+                <TextField name="amountFrom" />
+                <SelectField
+                  name={`currencyFrom`}
+                  options={Object.keys(rates.data.rates).map((key) => ({
+                    label: key,
+                    value: key,
+                  }))}
+                />
+              </Field>
+              <Field>
+                <BodyText className="currency-to">to</BodyText>
+                <SelectField
+                  name={`currencyTo`}
+                  options={Object.keys(rates.data.rates).map((key) => ({
+                    label: key,
+                    value: key,
+                  }))}
+                />
+              </Field>
             </InputFields>
             <ResultFields>
               <BodyText>is</BodyText>
@@ -94,7 +99,7 @@ function App() {
                 formatValue={(value) => {
                   return new Intl.NumberFormat("cs-CZ", {
                     style: "currency",
-                    maximumFractionDigits: 3,
+                    maximumFractionDigits: 2,
                     currency: values.currencyTo,
                   }).format(Number(value));
                 }}

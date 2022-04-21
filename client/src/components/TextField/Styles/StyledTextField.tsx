@@ -1,16 +1,12 @@
 import styled from "styled-components";
-import { colors } from "../../../helpers/consts";
+import { breakpoint, colors } from "../../../helpers/consts";
 
-export const StyledTextField = styled.div`
-  display: flex;
-  align-items: center;
-  width: 400px;
-`;
+export const StyledTextField = styled.div``;
 
 export const Input = styled.input`
   text-align: left;
   font-size: 10rem;
-  width: 350px;
+  width: 450px;
   border: none;
   background-color: ${colors.grey400};
   height: 100%;
@@ -35,12 +31,27 @@ export const Input = styled.input`
   &.error {
     border: 2px solid ${colors.red600};
   }
+  ${breakpoint.tabletLandscape} {
+    width: 300px;
+  }
+  ${breakpoint.phone} {
+    width: 180px;
+  }
+  ${breakpoint.miniPhone} {
+    width: 100%;
+  }
 `;
 
 export const ErrMessage = styled.span`
   color: ${colors.red600};
   font-size: 4rem;
   position: absolute;
-  width: 500px;
-  top: 180px;
+  top: 3%;
+  left: 3%;
+  ${breakpoint.tabletLandscape} {
+    top: 2%;
+  }
+  ${breakpoint.tabletPortrait} {
+    top: 3%;
+  }
 `;

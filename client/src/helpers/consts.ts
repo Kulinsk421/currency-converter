@@ -15,9 +15,9 @@ export const shadows = {
 };
 
 export const device = {
-  miniPhone: 350,
+  miniPhone: 400,
   phone: 650,
-  tabletPortrait: 900,
+  tabletPortrait: 980,
   tabletLandscape: 1250,
   smallNotebook: 1400,
   largeNotebook: 1920,
