@@ -31,7 +31,10 @@ function App() {
 
       setValues((prev) => ({
         ...prev,
-        convertedAmount: data.data.convertedAmount,
+        convertedAmount: new Intl.NumberFormat("cs-CZ", {
+          style: "currency",
+          currency: values.currencyTo,
+        }).format(data.data.convertedAmount),
       }));
     } catch (e) {
       console.log(e);
@@ -94,18 +97,7 @@ function App() {
             </InputFields>
             <ResultFields>
               <BodyText>is</BodyText>
-              {
-                <ResultField
-                  value={values.convertedAmount}
-                  formatValue={(value) => {
-                    return new Intl.NumberFormat("cs-CZ", {
-                      style: "currency",
-                      maximumFractionDigits: 3,
-                      currency: values.currencyTo,
-                    }).format(Number(value));
-                  }}
-                />
-              }
+              {<ResultField value={values.convertedAmount} />}
             </ResultFields>
 
             <ButtonsSection>

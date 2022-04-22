@@ -14,12 +14,11 @@ router.route("/").get(async (req, res) => {
   const data = await convertedData.find({});
 
   const targetCurrencies = data.map((stat) => stat.currencyTo);
+
   const amountsToConvert = data.map((stat) =>
     parseFloat(stat.convertedInUsd.toFixed(3))
   );
-
   let sum = 0;
-
   for (let i = 0; i < amountsToConvert.length; i++) {
     sum += amountsToConvert[i];
   }
@@ -28,7 +27,6 @@ router.route("/").get(async (req, res) => {
   const totalConversions = targetCurrencies.length;
 
   let favCurrency = { element: null, occured: 0 };
-
   const result = targetCurrencies.reduce((acc, el) => {
     acc[el] = acc[el] ? acc[el] + 1 : 1;
     if (acc[el] > favCurrency.occured) {
