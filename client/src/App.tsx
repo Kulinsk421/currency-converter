@@ -100,7 +100,7 @@ function App() {
                   formatValue={(value) => {
                     return new Intl.NumberFormat("cs-CZ", {
                       style: "currency",
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 3,
                       currency: values.currencyTo,
                     }).format(Number(value));
                   }}
