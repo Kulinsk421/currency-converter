@@ -25,11 +25,13 @@ router.route("/").post(async (req, res, next) => {
     const rateFrom = currencyRates[currencyFrom];
     const rateTo = currencyRates[currencyTo];
     let convertedAmount = (rateTo / rateFrom) * Number(amountFrom);
+    let convertedInUsd = (1 / rateFrom) * Number(amountFrom);
     const resWrite = await axios.put(
       `${conversionApiUrl}/api/write-conversion`,
       {
         currencyTo,
         amountFrom,
+        convertedInUsd,
       }
     );
 

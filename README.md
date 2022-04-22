@@ -6,7 +6,7 @@ There are currently two branches. In the master branch there is the full app whi
 
 In order to make both versions of this app running, please follow these instructions:
 
-1. Clone desired version's repo.
+1. Clone or download desired version's repo and open it in your text editor.
 2. In order to get the server running navigate in terminal to the folder called server and type "npm i" to install node modules.
 3. In server folder create .env file and copy provided API and DB keys.
 4. Now you can run the server on your localhost with command "npm run dev".

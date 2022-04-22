@@ -5,10 +5,14 @@ import convertedData from "../models/convertedModel";
 const router = express.Router();
 
 router.route("/").put((req, res, next) => {
-  const { currencyTo, amountFrom } = req.body;
+  const { currencyTo, amountFrom, convertedInUsd } = req.body;
 
   try {
-    const newData = new convertedData({ amountFrom, currencyTo });
+    const newData = new convertedData({
+      amountFrom,
+      currencyTo,
+      convertedInUsd,
+    });
 
     newData.save();
     res.json({ status: 200 });

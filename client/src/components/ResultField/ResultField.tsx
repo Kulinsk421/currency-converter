@@ -13,7 +13,7 @@ const ResultField = ({ formatValue = (val) => val, value }: Props) => {
 
   return (
     <StyledResultField>
-      <BodyText className="result">{formatValue(value)}</BodyText>
+      <BodyText>{formatValue(value)}</BodyText>
     </StyledResultField>
   );
 };
